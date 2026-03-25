@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EGN 3365 — Exam 2 Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #14171f;
+    --surface2: #1c2030;
+    --border: #2a2f42;
+    --gold: #f0a500;
+    --gold-dim: #c4850a;
+    --teal: #4ecdc4;
+    --red: #e05252;
+    --green: #52c47a;
+    --blue: #5b8dee;
+    --text: #e8eaf0;
+    --muted: #7a8099;
+    --formula-bg: #0a1628;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #0a0c12 0%, #14171f 60%, #1a1020 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 48px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(240,165,0,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 20%;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(78,205,196,0.05) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 5vw, 48px);
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  header h1 span { color: var(--gold); }
+  .header-sub {
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 300;
+  }
+  .exam-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(240,165,0,0.1);
+    border: 1px solid rgba(240,165,0,0.3);
+    color: var(--gold);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    margin-top: 16px;
+    letter-spacing: 1px;
+  }
+  .dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: pulse 1.5s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  /* NAV TABS */
+  .tabs-container {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .tabs-container::-webkit-scrollbar { display: none; }
+  .tab {
+    padding: 16px 20px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* CONTENT */
+  .content { padding: 40px 48px; max-width: 1100px; }
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* SECTION HEADERS */
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--text);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--border), transparent);
+  }
+  .section-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    background: rgba(240,165,0,0.1);
+    color: var(--gold);
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+  }
+  .subsection {
+    margin: 28px 0 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--teal);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  .card-title {
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+
+  /* FORMULA BOXES */
+  .formula-box {
+    background: var(--formula-bg);
+    border: 1px solid rgba(94,141,238,0.3);
+    border-left: 3px solid var(--blue);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 12px 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    color: var(--teal);
+  }
+  .formula-box .formula-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .formula-box .formula-main {
+    font-size: 17px;
+    color: var(--text);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .formula-vars {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.8;
+  }
+  .formula-vars span { color: var(--teal); font-family: 'IBM Plex Mono', monospace; }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media(max-width: 700px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  /* DEFINITION CARDS */
+  .def-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .def-card .term {
+    font-weight: 600;
+    color: var(--gold);
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+  .def-card .definition {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* RANKING TABLE */
+  .rank-table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  .rank-table th {
+    background: var(--surface2);
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .rank-table td {
+    padding: 10px 14px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+  }
+  .rank-table tr:last-child td { border-bottom: none; }
+  .rank-1 { color: var(--gold); font-weight: 600; }
+  .rank-2 { color: var(--teal); }
+  .rank-3 { color: var(--text); }
+  .rank-4 { color: var(--muted); }
+
+  /* ALERT / KEY NOTE */
+  .key-note {
+    background: rgba(240,165,0,0.05);
+    border: 1px solid rgba(240,165,0,0.2);
+    border-left: 3px solid var(--gold);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: var(--text);
+  }
+  .key-note strong { color: var(--gold); }
+
+  .danger-note {
+    background: rgba(224,82,82,0.05);
+    border: 1px solid rgba(224,82,82,0.2);
+    border-left: 3px solid var(--red);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-size: 13px;
+    color: var(--text);
+  }
+  .danger-note strong { color: var(--red); }
+
+  /* STEPS */
+  .steps { list-style: none; }
+  .steps li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    font-size: 13px;
+  }
+  .step-num {
+    background: var(--gold);
+    color: #000;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* BULLET LIST */
+  .bullet-list { list-style: none; }
+  .bullet-list li {
+    padding: 5px 0;
+    font-size: 13px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .bullet-list li::before {
+    content: '→';
+    color: var(--gold);
+    flex-shrink: 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    margin-top: 2px;
+  }
+
+  /* PRACTICE SECTION */
+  .practice-problem {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  .problem-header {
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+    transition: background 0.2s;
+  }
+  .problem-header:hover { background: var(--surface2); }
+  .problem-header.open { border-bottom-color: var(--border); }
+  .problem-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 2px;
+  }
+  .problem-title {
+    font-weight: 500;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+  .problem-badge {
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    flex-shrink: 0;
+  }
+  .badge-ch6 { background: rgba(94,141,238,0.15); color: var(--blue); }
+  .badge-ch7 { background: rgba(78,205,196,0.15); color: var(--teal); }
+  .badge-ch8 { background: rgba(240,165,0,0.15); color: var(--gold); }
+  .toggle-icon { color: var(--muted); font-size: 18px; transition: transform 0.3s; flex-shrink: 0; }
+  .toggle-icon.open { transform: rotate(180deg); }
+
+  .problem-body { display: none; padding: 20px 24px; }
+  .problem-body.open { display: block; }
+  .problem-text {
+    font-size: 14px;
+    line-height: 1.8;
+    background: var(--surface2);
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+  }
+  .show-solution-btn {
+    background: rgba(240,165,0,0.1);
+    border: 1px solid rgba(240,165,0,0.3);
+    color: var(--gold);
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    transition: all 0.2s;
+    margin-top: 8px;
+  }
+  .show-solution-btn:hover { background: rgba(240,165,0,0.2); }
+  .solution-box {
+    display: none;
+    margin-top: 16px;
+    background: rgba(82,196,122,0.05);
+    border: 1px solid rgba(82,196,122,0.2);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .solution-box.open { display: block; }
+  .solution-title {
+    font-size: 11px;
+    color: var(--green);
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .solution-step {
+    font-size: 13px;
+    margin-bottom: 10px;
+    line-height: 1.7;
+  }
+  .sol-formula {
+    font-family: 'IBM Plex Mono', monospace;
+    background: var(--formula-bg);
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin: 8px 0;
+    font-size: 13px;
+    color: var(--teal);
+    display: block;
+  }
+  .sol-answer {
+    background: rgba(82,196,122,0.1);
+    border: 1px solid rgba(82,196,122,0.3);
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+    color: var(--green);
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 12px;
+    display: block;
+  }
+
+  /* QUICK REFERENCE PANEL */
+  .qr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+  }
+  .qr-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .qr-card h4 {
+    font-size: 12px;
+    color: var(--teal);
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .qr-formula {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 600;
+    padding: 6px 0;
+    display: block;
+  }
+  .qr-note {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--border); margin: 32px 0; }
+
+  /* ANNEALING TIMELINE */
+  .timeline {
+    display: flex;
+    gap: 0;
+    margin: 16px 0;
+  }
+  .tl-step {
+    flex: 1;
+    padding: 16px;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .tl-step:first-child { border-radius: 8px 0 0 8px; }
+  .tl-step:last-child { border-radius: 0 8px 8px 0; }
+  .tl-step:not(:first-child) { border-left: none; }
+  .tl-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 22px;
+    font-weight: 600;
+    opacity: 0.2;
+    position: absolute;
+    top: 10px; right: 12px;
+  }
+  .tl-label {
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: var(--gold);
+  }
+  .tl-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* CREEP STAGES */
+  .creep-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0;
+    margin-bottom: 8px;
+    align-items: center;
+  }
+  .creep-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    padding: 10px 14px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-right: none;
+    border-radius: 6px 0 0 6px;
+    color: var(--gold);
+  }
+  .creep-desc {
+    font-size: 13px;
+    padding: 10px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0 6px 6px 0;
+  }
+
+  /* SCROLL */
+  html { scroll-behavior: smooth; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 48px;
+    color: var(--muted);
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-label">EGN 3365 · Structure & Properties of Materials</div>
+  <h1>Exam 2 <span>Study Guide</span></h1>
+  <p class="header-sub">Chapters 6 · 7 · 8 — Mechanical Properties, Dislocations, Failure</p>
+  <div class="exam-badge"><span class="dot"></span> EXAM: Wednesday March 25 · 75 min · Calculator + Formula Sheet</div>
+</header>
+
+<div class="tabs-container">
+  <button class="tab active" onclick="showPanel('ch6')">Ch 6: Stress & Strain</button>
+  <button class="tab" onclick="showPanel('ch7')">Ch 7: Dislocations</button>
+  <button class="tab" onclick="showPanel('ch8')">Ch 8: Failure</button>
+  <button class="tab" onclick="showPanel('qr')">Quick Reference</button>
+  <button class="tab" onclick="showPanel('practice')">Practice Problems</button>
+</div>
+
+<!-- ============================================================ CH 6 ============================================================ -->
+<div class="content">
+<div id="ch6" class="panel active">
+  <div class="section-title">Chapter 6 <span class="section-tag">MECHANICAL PROPERTIES</span></div>
+
+  <div class="subsection">Stress & Strain — Fundamentals</div>
+  <div class="grid-2">
+    <div class="formula-box">
+      <div class="formula-label">Engineering Stress</div>
+      <div class="formula-main">σ = F / A₀</div>
+      <div class="formula-vars">
+        <span>σ</span> = stress (N/m² = Pa)<br>
+        <span>F</span> = applied force (N)<br>
+        <span>A₀</span> = original cross-sectional area (m²)
+      </div>
+    </div>
+    <div class="formula-box">
+      <div class="formula-label">Engineering Strain</div>
+      <div class="formula-main">ε = (l_i − l₀) / l₀ = ΔL / l₀</div>
+      <div class="formula-vars">
+        <span>ε</span> = strain (dimensionless)<br>
+        <span>l₀</span> = original length<br>
+        <span>l_i</span> = instantaneous length
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Tensile Stress</div>
+      Load applied <strong>perpendicular</strong> to specimen across cross-section. Force pulls specimen apart along its axis.
+    </div>
+    <div class="card">
+      <div class="card-title">Shear Stress</div>
+      Force applied <strong>parallel</strong> to upper and lower faces, each with area A₀. τ = Fs / As
+    </div>
+  </div>
+
+  <div class="subsection">Hooke's Law & Poisson's Ratio</div>
+  <div class="grid-2">
+    <div class="formula-box">
+      <div class="formula-label">Hooke's Law (Elastic Region)</div>
+      <div class="formula-main">σ = Eε</div>
+      <div class="formula-vars">
+        <span>E</span> = Modulus of Elasticity (Young's Modulus)<br>
+        Greater E → stiffer material
+      </div>
+    </div>
+    <div class="formula-box">
+      <div class="formula-label">Poisson's Ratio</div>
+      <div class="formula-main">ν = −εₓ / εᵤ = −εₓ / εᵤ</div>
+      <div class="formula-vars">
+        <span>ν</span> = ratio of lateral to axial strain<br>
+        Elastic strain in compression perpendicular to extension<br>
+        Δd = −(ν · d₀ · ΔL) / L₀
+      </div>
+    </div>
+  </div>
+
+  <div class="key-note">
+    <strong>Cylindrical bar area:</strong> A₀ = π(d₀/2)² = πr² — always use original diameter to find original area. When they give you diameter, halve it to get radius!
+  </div>
+
+  <div class="subsection">Stress-Strain Curve — Know Every Region</div>
+  <div class="card">
+    <table class="rank-table">
+      <tr>
+        <th>Feature</th>
+        <th>Location on Curve</th>
+        <th>Key Fact</th>
+      </tr>
+      <tr>
+        <td class="rank-1">Modulus of Elasticity (E)</td>
+        <td>Slope of initial linear region</td>
+        <td>E = Δσ/Δε (rise over run in elastic region)</td>
+      </tr>
+      <tr>
+        <td class="rank-2">Yield Strength (YS)</td>
+        <td>0.002 strain offset intersection</td>
+        <td>Where noticeable plastic deformation begins</td>
+      </tr>
+      <tr>
+        <td class="rank-3">Tensile Strength (TS)</td>
+        <td>Maximum point on curve</td>
+        <td>Max stress a structure can sustain in tension</td>
+      </tr>
+      <tr>
+        <td class="rank-4">Fracture / Failure</td>
+        <td>End of curve</td>
+        <td>Where specimen breaks</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="grid-2">
+    <div class="def-card">
+      <div class="term">Elastic Deformation</div>
+      <div class="definition">Reversible, non-permanent. Stress and strain are proportional. Curve is linear. Valid at small deformations.</div>
+    </div>
+    <div class="def-card">
+      <div class="term">Plastic Deformation</div>
+      <div class="definition">Irreversible, permanent. Occurs after yield point. Material will not return to original shape when unloaded.</div>
+    </div>
+  </div>
+
+  <div class="subsection">Elastic Modulus — Material Rankings</div>
+  <table class="rank-table">
+    <tr><th>Rank</th><th>Material Type</th><th>E Value</th></tr>
+    <tr><td class="rank-1">Highest</td><td>Graphite / Ceramics / Semiconductors</td><td>Can be very high (Diamond ~1000 GPa)</td></tr>
+    <tr><td class="rank-2">2nd</td><td>Metals / Alloys</td><td>Steel ~200 GPa, Al ~70 GPa</td></tr>
+    <tr><td class="rank-3">3rd</td><td>Composites / Fibers</td><td>Wide range (high to low)</td></tr>
+    <tr><td class="rank-4">Lowest</td><td>Polymers</td><td>Much lower than metals</td></tr>
+  </table>
+
+  <div class="subsection">Tensile Strength — Material Rankings</div>
+  <table class="rank-table">
+    <tr><th>Rank</th><th>Material Type</th></tr>
+    <tr><td class="rank-1">Highest</td><td>Metals / Alloys</td></tr>
+    <tr><td class="rank-2">Middle</td><td>Graphite / Ceramics</td></tr>
+    <tr><td class="rank-3">Varies</td><td>Composites / Fibers (high to low)</td></tr>
+    <tr><td class="rank-4">Lowest</td><td>Polymers</td></tr>
+  </table>
+
+  <div class="subsection">Ductility, Resilience, Toughness, Hardness</div>
+  <div class="grid-2">
+    <div class="def-card">
+      <div class="term">Ductility</div>
+      <div class="definition">Measure of degree of <em>plastic deformation</em> that has been sustained at fracture. How much a material stretches before breaking.</div>
+    </div>
+    <div class="def-card">
+      <div class="term">Resilience</div>
+      <div class="definition">Ability of a material to absorb energy when deformed <em>elastically</em> and release it upon unloading. Area under elastic region.</div>
+    </div>
+    <div class="def-card">
+      <div class="term">Toughness</div>
+      <div class="definition">Material's resistance to fracture when a crack is present. = Total area under entire stress-strain curve. Requires BOTH strength AND ductility.</div>
+    </div>
+    <div class="def-card">
+      <div class="term">Hardness</div>
+      <div class="definition">Resistance to localized plastic deformation (e.g., scratching, indentation).</div>
+    </div>
+  </div>
+
+  <div class="formula-box">
+    <div class="formula-label">Ductility Calculations</div>
+    <div class="formula-main">%EL = [(l_f − l₀) / l₀] × 100</div>
+    <div class="formula-main" style="margin-top:8px">%RA = [(A₀ − A_f) / A₀] × 100</div>
+    <div class="formula-vars" style="margin-top:8px">
+      <span>l_f</span> = fracture length, <span>l₀</span> = original length<br>
+      <span>A₀</span> = original area, <span>A_f</span> = fracture area
+    </div>
+  </div>
+
+  <div class="key-note">
+    <strong>Toughness vs Ductility:</strong> Brittle fracture = small toughness. Ductile fracture = large toughness. For a metal to be tough, it must display BOTH strength AND ductility.
+  </div>
+
+  <div class="subsection">True vs Engineering Stress/Strain</div>
+  <div class="grid-2">
+    <div class="formula-box">
+      <div class="formula-label">True Stress & Strain</div>
+      <div class="formula-main">σ_T = σ_eng(1 + ε_eng)</div>
+      <div class="formula-main">ε_T = ln(1 + ε_eng)</div>
+    </div>
+    <div class="formula-box">
+      <div class="formula-label">Safety Factor / Working Stress</div>
+      <div class="formula-main">σ_w = σ_yield / N</div>
+      <div class="formula-vars">
+        <span>σ_w</span> = working (allowable) stress<br>
+        <span>σ_yield</span> = yield strength<br>
+        <span>N</span> = safety factor (typically 1.2–4)
+      </div>
+    </div>
+  </div>
+
+  <div class="formula-box">
+    <div class="formula-label">True Stress–Strain Power Law (Plastic Region)</div>
+    <div class="formula-main">σ_T = Kε_T^n</div>
+    <div class="formula-main">log(σ_T) = log(K) + n·log(ε_T)</div>
+    <div class="formula-vars">
+      <span>K</span> = strength constant, <span>n</span> = strain-hardening exponent
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ CH 7 ============================================================ -->
+<div id="ch7" class="panel">
+  <div class="section-title">Chapter 7 <span class="section-tag">DISLOCATIONS & STRENGTHENING</span></div>
+
+  <div class="subsection">Dislocation Motion & Slip</div>
+  <div class="grid-2">
+    <div class="def-card">
+      <div class="term">Slip</div>
+      <div class="definition">The process by which plastic deformation occurs by dislocation motion. Dislocations move along slip planes in slip directions.</div>
+    </div>
+    <div class="def-card">
+      <div class="term">Slip Plane</div>
+      <div class="definition">The crystallographic plane along which the dislocation line traverses. Most densely packed plane.</div>
+    </div>
+    <div class="def-card">
+      <div class="term">Slip System</div>
+      <div class="definition">Consists of the most densely packed crystallographic plane + within the plane, the most closely packed direction. Varies by crystal structure.</div>
+    </div>
+    <div class="def-card">
+      <div class="term">Dislocation Motion</div>
+      <div class="definition">Easier in metals (many slip systems), harder in ceramics. FCC & BCC = ductile. HCP = normally brittle (fewer slip systems).</div>
+    </div>
+  </div>
+
+  <div class="subsection">Edge vs Screw Dislocation</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Edge Dislocation</div>
+      Direction of motion is <strong>parallel</strong> to the stress direction. The extra half-plane of atoms ends at the dislocation line.
+    </div>
+    <div class="card">
+      <div class="card-title">Screw Dislocation</div>
+      Direction of motion is <strong>perpendicular</strong> to the stress direction. Atomic planes form a helical ramp around the dislocation line.
+    </div>
+  </div>
+
+  <div class="subsection">Resolved Shear Stress — The Key Calculation</div>
+  <div class="formula-box">
+    <div class="formula-label">Resolved Shear Stress</div>
+    <div class="formula-main">τ_R = σ · cos(λ) · cos(φ)</div>
+    <div class="formula-vars">
+      <span>σ</span> = applied tensile stress<br>
+      <span>λ</span> = angle between slip direction and applied stress direction<br>
+      <span>φ</span> = angle between normal to slip plane and applied stress direction
+    </div>
+  </div>
+
+  <div class="formula-box">
+    <div class="formula-label">Critical Resolved Shear Stress — Yield Condition</div>
+    <div class="formula-main">σ_y = τ_CRSS / (cos φ · cos λ)_max</div>
+    <div class="formula-vars">
+      Slip occurs when <span>τ_R ≥ τ_CRSS</span><br>
+      If τ_R &lt; τ_CRSS → NO SLIP (elastic only)<br>
+      If τ_R ≥ τ_CRSS → PLASTIC DEFORMATION (yielding)
+    </div>
+  </div>
+
+  <div class="formula-box">
+    <div class="formula-label">Finding Angles Using Miller Indices</div>
+    <div class="formula-main">λ = cos⁻¹[ (u₁u₂ + v₁v₂ + w₁w₂) / √((u₁²+v₁²+w₁²)(u₂²+v₂²+w₂²)) ]</div>
+    <div class="formula-vars" style="margin-top:8px">For <span>λ</span>: u₁v₁w₁ = tensile stress direction, u₂v₂w₂ = slip direction</div>
+    <div class="formula-main" style="margin-top:10px">φ = cos⁻¹[ (u₁u₂ + v₁v₂ + w₁w₂) / √((u₁²+v₁²+w₁²)(u₂²+v₂²+w₂²)) ]</div>
+    <div class="formula-vars">For <span>φ</span>: u₁v₁w₁ = tensile stress direction, u₂v₂w₂ = slip PLANE (normal)</div>
+  </div>
+
+  <div class="danger-note">
+    <strong>⚠ Common Trap:</strong> You may be given angles directly, OR you may need to calculate them from Miller indices. The formula is the same structure for both λ and φ — just different input vectors. For φ, you use the slip PLANE indices (these are the normal to the plane).
+  </div>
+
+  <div class="subsection">3 Strengthening Mechanisms</div>
+  <div class="card">
+    <ol class="steps">
+      <li><span class="step-num">1</span><div><strong style="color:var(--gold)">Grain Size Reduction</strong> — Smaller grains = more grain boundaries = more obstacles to dislocation motion = stronger material. Hall-Petch equation governs this.</div></li>
+      <li><span class="step-num">2</span><div><strong style="color:var(--teal)">Solid Solution Strengthening</strong> — Adding impurity atoms (substitutional or interstitial) distorts the lattice and impedes dislocation motion.</div></li>
+      <li><span class="step-num">3</span><div><strong style="color:var(--blue)">Strain Hardening (Cold Working)</strong> — Plastic deformation creates new dislocations; dislocations impede each other → strength and hardness increase, ductility decreases.</div></li>
+    </ol>
+  </div>
+
+  <div class="key-note">
+    <strong>Cold Working effects:</strong> ↑ Yield Strength, ↑ Tensile Strength, ↑ Hardness, ↓ Ductility (%EL or %AR). Dislocation density increases.
+  </div>
+
+  <div class="formula-box">
+    <div class="formula-label">Hall-Petch Equation (Grain Size → Yield Strength)</div>
+    <div class="formula-main">σ_yield = σ₀ + k_y · d^(−1/2)</div>
+    <div class="formula-vars">
+      <span>σ₀</span> = friction stress (material constant, y-intercept)<br>
+      <span>k_y</span> = strengthening coefficient (material constant)<br>
+      <span>d</span> = average grain diameter<br>
+      To solve for k_y and σ₀: use 2 data points → set up 2 equations → subtract
+    </div>
+  </div>
+
+  <div class="formula-box">
+    <div class="formula-label">Cold Work Percentage</div>
+    <div class="formula-main">%CW = [(A₀ − A_d) / A₀] × 100</div>
+    <div class="formula-vars">
+      <span>A₀</span> = original area (before deformation)<br>
+      <span>A_d</span> = deformed area (after = smaller)<br>
+      For cylinders: %CW = [(r₀² − r_d²) / r₀²] × 100
+    </div>
+  </div>
+
+  <div class="subsection">Annealing — 3 Stages</div>
+  <div class="timeline">
+    <div class="tl-step">
+      <div class="tl-num">1</div>
+      <div class="tl-label">Recovery</div>
+      <div class="tl-desc">Reduction of dislocation density by annihilation. Internal stresses relieved. Strength slightly reduced.</div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-num">2</div>
+      <div class="tl-label">Recrystallization</div>
+      <div class="tl-desc">New grains form with low dislocation densities, small in size, consume & replace cold-worked grains. Strength drops, ductility rises.</div>
+    </div>
+    <div class="tl-step">
+      <div class="tl-num">3</div>
+      <div class="tl-label">Grain Growth</div>
+      <div class="tl-desc">At longer times, average grain size increases. Small grains shrink & disappear, large grains continue to grow.</div>
+    </div>
+  </div>
+
+  <div class="formula-box">
+    <div class="formula-label">Grain Growth Equation</div>
+    <div class="formula-main">d² − d₀² = K·t</div>
+    <div class="formula-vars">
+      <span>d</span> = grain diameter at time t, <span>d₀</span> = original diameter<br>
+      <span>K</span> = temperature-dependent constant, <span>t</span> = time<br>
+      General form: d^n − d₀^n = Kt (n = grain exponent, often 2)
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ CH 8 ============================================================ -->
+<div id="ch8" class="panel">
+  <div class="section-title">Chapter 8 <span class="section-tag">FAILURE</span></div>
+
+  <div class="subsection">Crack Propagation — Surface vs Internal</div>
+  <div class="danger-note">
+    <strong>⚠ THIS IS A MAJOR TRAP ON EXAMS:</strong><br>
+    • <strong>Surface crack</strong> — given full depth → use as-is: a = the value given<br>
+    • <strong>Internal crack</strong> — given total length 2a → HALVE IT to get a<br>
+    Example: "internal crack length = 1.00 m" → use a = 0.50 m in equations!
+  </div>
+
+  <div class="formula-box">
+    <div class="formula-label">Griffith Equation — Critical Stress for Crack Propagation</div>
+    <div class="formula-main">σ_c = (2Eγ_s / πa)^(1/2)</div>
+    <div class="formula-vars">
+      <span>σ_c</span> = critical stress for crack propagation<br>
+      <span>E</span> = modulus of elasticity<br>
+      <span>γ_s</span> = specific surface energy (J/m²)<br>
+      <span>a</span> = surface crack length (or ½ length of internal crack)<br>
+      Crack propagates if applied σ ≥ σ_c
+    </div>
+  </div>
+
+  <div class="formula-box">
+    <div class="formula-label">Plane-Strain Fracture Toughness</div>
+    <div class="formula-main">K_IC = Yσ_c√(πa)</div>
+    <div class="formula-vars">
+      <span>K_IC</span> = fracture toughness (units: MPa√m)<br>
+      <span>Y</span> = dimensionless geometric factor<br>
+      <span>σ_c</span> = critical stress for crack propagation<br>
+      <span>a</span> = crack length (use surface crack rule above!)<br>
+      If K_applied ≥ K_IC → fracture occurs
+    </div>
+  </div>
+
+  <div class="formula-box">
+    <div class="formula-label">Rearrangement — Critical Crack Length</div>
+    <div class="formula-main">a_c = (1/π) × (K_IC / Yσ)²</div>
+  </div>
+
+  <div class="subsection">Fracture Toughness — Material Rankings</div>
+  <table class="rank-table">
+    <tr><th>Rank</th><th>Material Type</th><th>Reason</th></tr>
+    <tr><td class="rank-1">Highest</td><td>Metals / Alloys</td><td>Ductile — extensive plastic deformation absorbs energy</td></tr>
+    <tr><td class="rank-2">High–Mild</td><td>Composites / Fibers</td><td>Fibers bridge cracks</td></tr>
+    <tr><td class="rank-3">2nd Lowest</td><td>Graphite / Ceramics</td><td>More brittle, limited plasticity</td></tr>
+    <tr><td class="rank-4">Lowest</td><td>Polymers</td><td>Brittle failure common</td></tr>
+  </table>
+
+  <div class="key-note">
+    <strong>K_IC is a fundamental material property</strong> — depends on temperature, strain rate, and microstructure. K_IC is LOW for brittle materials (no plastic deformation), HIGH for ductile materials.
+  </div>
+
+  <div class="formula-box">
+    <div class="formula-label">Stress Concentration Factor</div>
+    <div class="formula-main">K_t = 2(a / ρ_t)^(1/2)</div>
+    <div class="formula-main">σ_m = K_t × σ₀</div>
+    <div class="formula-vars">
+      <span>ρ_t</span> = crack-tip radius of curvature, <span>a</span> = crack length<br>
+      <span>σ_m</span> = maximum stress at crack tip, <span>σ₀</span> = applied stress
+    </div>
+  </div>
+
+  <div class="subsection">Fatigue</div>
+  <div class="card">
+    <div class="card-title">Definition</div>
+    Failure under applied <strong>cyclic stress</strong>. Repeated small stresses cause slow crack growth leading to fracture. Can occur at stresses well below the yield strength.
+  </div>
+
+  <div class="key-note">
+    <strong>3 Factors that Affect Fatigue:</strong> (1) Maximum stress in tension, (2) Fluctuation in applied stress (stress amplitude), (3) Number of cycles
+  </div>
+
+  <div class="formula-box">
+    <div class="formula-label">Rotating-Bending Beam Fatigue Test</div>
+    <div class="formula-main">σ / N = 16FL / (πd₀³)</div>
+    <div class="formula-label" style="margin-top:10px">Tension-Compression Fatigue Test</div>
+    <div class="formula-main">σ / N = 4F / (πd₀²)</div>
+    <div class="formula-vars">
+      <span>σ</span> = stress, <span>N</span> = safety factor, <span>F</span> = applied load<br>
+      <span>L</span> = distance between load-bearing points, <span>d₀</span> = diameter
+    </div>
+  </div>
+
+  <div class="formula-box">
+    <div class="formula-label">Mean Stress & Stress Ratio</div>
+    <div class="formula-main">σ_mean = (σ_max + σ_min) / 2</div>
+    <div class="formula-main">σ_a = (σ_max − σ_min) / 2</div>
+    <div class="formula-main">R = σ_min / σ_max</div>
+  </div>
+
+  <div class="key-note">
+    <strong>S-N Curve:</strong> As mean stress DECREASES, the allowable stress amplitude for a given fatigue is INCREASED. Materials with a fatigue limit show a plateau on the S-N curve (ferrous alloys). Non-ferrous alloys (aluminum) have NO fatigue limit — they will eventually fail at any stress.
+  </div>
+
+  <div class="card">
+    <div class="card-title">3 Steps of Fatigue Failure</div>
+    <ol class="steps">
+      <li><span class="step-num">1</span><div><strong>Crack Initiation</strong> — Small crack forms at regions of high stress concentration (surface defects, notches, scratches)</div></li>
+      <li><span class="step-num">2</span><div><strong>Crack Propagation</strong> — Crack advances incrementally with each stress cycle. Creates characteristic "beach marks" or striations</div></li>
+      <li><span class="step-num">3</span><div><strong>Failure</strong> — Occurs rapidly once the advancing crack reaches the critical size (fracture)</div></li>
+    </ol>
+  </div>
+
+  <div class="subsection">Creep</div>
+  <div class="card">
+    <div class="card-title">Definition</div>
+    <strong>Time-dependent and permanent deformation</strong> of material when subjected to a static mechanical stress or load at <strong>elevated temperature</strong>. Significant above ~0.4 T_m (melting point in Kelvin).
+  </div>
+
+  <div class="divider"></div>
+  <div style="font-size:13px; color:var(--muted); margin-bottom:12px;">Creep Strain vs. Time — Know Every Region:</div>
+  <div class="creep-row"><div class="creep-label">Instantaneous</div><div class="creep-desc">Elastic deformation on load application (the initial vertical jump)</div></div>
+  <div class="creep-row"><div class="creep-label">Primary</div><div class="creep-desc">Slope (creep rate) DECREASES with time — strain hardening/creep resistance builds up</div></div>
+  <div class="creep-row"><div class="creep-label">Secondary</div><div class="creep-desc">Steady-state — constant slope (Δε/Δt). This is the steady-state creep rate ε̇_s</div></div>
+  <div class="creep-row"><div class="creep-label">Tertiary</div><div class="creep-desc">Slope INCREASES with time until rupture — due to microstructural/metallurgical changes</div></div>
+  <div class="divider"></div>
+
+  <div class="formula-box">
+    <div class="formula-label">Steady-State Creep Rate (Power Law — Constant Temp)</div>
+    <div class="formula-main">ε̇_s = K₁σⁿ</div>
+    <div class="formula-label" style="margin-top:12px">Steady-State Creep Rate (With Temperature Dependence)</div>
+    <div class="formula-main">ε̇_s = K₂σⁿ · exp(−Q_c / RT)</div>
+    <div class="formula-vars">
+      <span>ε̇_s</span> = steady-state creep rate, <span>K₁, K₂</span> = material constants<br>
+      <span>n</span> = stress exponent, <span>σ</span> = applied stress<br>
+      <span>Q_c</span> = activation energy for creep, <span>R</span> = 8.31 J/mol·K<br>
+      <span>T</span> = temperature in Kelvin
+    </div>
+  </div>
+
+  <div class="formula-box">
+    <div class="formula-label">Total Elongation from Creep</div>
+    <div class="formula-main">ε_steady = ε̇_s × t</div>
+    <div class="formula-main">ΔL_steady = ε_steady × L₀</div>
+    <div class="formula-main">ΔL_total = ΔL_steady + ΔL_inst+primary</div>
+  </div>
+
+  <div class="key-note">
+    <strong>Stress & Temperature Dependence:</strong> Increasing temp or stress → instantaneous strain increases, steady-state creep rate increases (steeper slope in secondary region), rupture time decreases. At T = 0.4 T_m, strain is virtually independent of time.
+  </div>
+</div>
+
+<!-- ============================================================ QUICK REF ============================================================ -->
+<div id="qr" class="panel">
+  <div class="section-title">Quick Reference <span class="section-tag">ALL FORMULAS</span></div>
+  <p style="color:var(--muted); font-size:13px; margin-bottom:24px;">Every formula you need for the exam in one place. Study this the morning of.</p>
+
+  <div class="qr-grid">
+    <div class="qr-card">
+      <h4>Ch 6 — Stress & Strain</h4>
+      <span class="qr-formula">σ = F / A₀</span>
+      <span class="qr-formula">ε = ΔL / L₀</span>
+      <span class="qr-formula">σ = Eε (Hooke's Law)</span>
+      <span class="qr-formula">A₀ = π(d₀/2)²</span>
+    </div>
+    <div class="qr-card">
+      <h4>Ch 6 — Poisson's Ratio</h4>
+      <span class="qr-formula">ν = −εₓ / εᵤ</span>
+      <span class="qr-formula">Δd = −(ν · d₀ · ΔL) / L₀</span>
+      <div class="qr-note">εₓ = lateral strain, εᵤ = axial strain</div>
+    </div>
+    <div class="qr-card">
+      <h4>Ch 6 — Ductility</h4>
+      <span class="qr-formula">%EL = [(l_f − l₀)/l₀] × 100</span>
+      <span class="qr-formula">%RA = [(A₀ − A_f)/A₀] × 100</span>
+    </div>
+    <div class="qr-card">
+      <h4>Ch 6 — True Stress/Strain</h4>
+      <span class="qr-formula">σ_T = σ_eng(1 + ε_eng)</span>
+      <span class="qr-formula">ε_T = ln(1 + ε_eng)</span>
+      <span class="qr-formula">σ_T = Kε_T^n</span>
+    </div>
+    <div class="qr-card">
+      <h4>Ch 6 — Safety Factor</h4>
+      <span class="qr-formula">σ_w = σ_yield / N</span>
+      <div class="qr-note">N = safety factor (1.2–4 typically)</div>
+    </div>
+    <div class="qr-card">
+      <h4>Ch 7 — Resolved Shear Stress</h4>
+      <span class="qr-formula">τ_R = σ · cos(λ) · cos(φ)</span>
+      <span class="qr-formula">Slip if τ_R ≥ τ_CRSS</span>
+      <span class="qr-formula">σ_y = τ_CRSS / (cosφ·cosλ)</span>
+    </div>
+    <div class="qr-card">
+      <h4>Ch 7 — Hall-Petch</h4>
+      <span class="qr-formula">σ_yield = σ₀ + k_y · d^(−1/2)</span>
+      <div class="qr-note">Use 2 data points → 2 equations → solve system</div>
+    </div>
+    <div class="qr-card">
+      <h4>Ch 7 — Cold Work</h4>
+      <span class="qr-formula">%CW = [(A₀ − A_d)/A₀] × 100</span>
+      <span class="qr-formula">r_d = r₀√(1 − %CW/100)</span>
+    </div>
+    <div class="qr-card">
+      <h4>Ch 7 — Grain Growth</h4>
+      <span class="qr-formula">d² − d₀² = Kt</span>
+      <div class="qr-note">General: d^n − d₀^n = Kt (n usually = 2)</div>
+    </div>
+    <div class="qr-card">
+      <h4>Ch 8 — Fracture Toughness</h4>
+      <span class="qr-formula">K_IC = Yσ_c√(πa)</span>
+      <span class="qr-formula">a_c = (1/π)(K_IC/Yσ)²</span>
+      <div class="qr-note">Surface: a = full depth | Internal: a = half of 2a</div>
+    </div>
+    <div class="qr-card">
+      <h4>Ch 8 — Griffith Equation</h4>
+      <span class="qr-formula">σ_c = (2Eγ_s / πa)^(1/2)</span>
+      <div class="qr-note">γ_s = specific surface energy</div>
+    </div>
+    <div class="qr-card">
+      <h4>Ch 8 — Stress Concentration</h4>
+      <span class="qr-formula">K_t = 2(a / ρ_t)^(1/2)</span>
+      <span class="qr-formula">σ_m = K_t × σ₀</span>
+    </div>
+    <div class="qr-card">
+      <h4>Ch 8 — Fatigue (Rotating Bending)</h4>
+      <span class="qr-formula">σ/N = 16FL / (πd₀³)</span>
+    </div>
+    <div class="qr-card">
+      <h4>Ch 8 — Fatigue (Tension-Compression)</h4>
+      <span class="qr-formula">σ/N = 4F / (πd₀²)</span>
+    </div>
+    <div class="qr-card">
+      <h4>Ch 8 — Mean Stress / Stress Ratio</h4>
+      <span class="qr-formula">σ_mean = (σ_max + σ_min) / 2</span>
+      <span class="qr-formula">σ_a = (σ_max − σ_min) / 2</span>
+      <span class="qr-formula">R = σ_min / σ_max</span>
+    </div>
+    <div class="qr-card">
+      <h4>Ch 8 — Creep Elongation</h4>
+      <span class="qr-formula">ε_s = ε̇_s × t</span>
+      <span class="qr-formula">ΔL = ε_s × L₀</span>
+      <span class="qr-formula">ΔL_total = ΔL_steady + ΔL_inst+primary</span>
+    </div>
+    <div class="qr-card">
+      <h4>Ch 8 — Steady-State Creep</h4>
+      <span class="qr-formula">ε̇_s = K₁σⁿ</span>
+      <span class="qr-formula">ε̇_s = K₂σⁿ·exp(−Q_c/RT)</span>
+      <div class="qr-note">R = 8.31 J/mol·K, T in Kelvin</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ PRACTICE ============================================================ -->
+<div id="practice" class="panel">
+  <div class="section-title">Practice Problems <span class="section-tag">TRY BEFORE PEEKING</span></div>
+  <p style="color:var(--muted); font-size:13px; margin-bottom:28px;">Click a problem to expand it. Try to solve it first, then reveal the solution. These are pulled directly from your homework and review materials.</p>
+
+  <!-- P1 -->
+  <div class="practice-problem">
+    <div class="problem-header" onclick="toggleProblem(this)">
+      <div>
+        <div class="problem-num">PROBLEM 01 · CH 6</div>
+        <div class="problem-title">Stress, Strain & Poisson's Ratio</div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <span class="problem-badge badge-ch6">Ch 6</span>
+        <span class="toggle-icon">▾</span>
+      </div>
+    </div>
+    <div class="problem-body">
+      <div class="problem-text">
+        A steel rod with an original diameter of d₀ = 25 mm is subjected to an axial tensile stress of σ = 200 MPa. Given E = 207 GPa and Poisson's ratio ν = 0.30, determine:<br><br>
+        (a) The axial strain<br>
+        (b) The lateral strain<br>
+        (c) The change in diameter<br>
+        (d) The required load
+      </div>
+      <button class="show-solution-btn" onclick="toggleSolution(this)">Show Solution</button>
+      <div class="solution-box">
+        <div class="solution-title">✓ Solution</div>
+        <div class="solution-step"><strong>(a) Axial Strain — Hooke's Law</strong></div>
+        <code class="sol-formula">ε_axial = σ / E = 200×10⁶ / 207×10⁹ = 9.66×10⁻⁴</code>
+        <div class="solution-step"><strong>(b) Lateral Strain — Poisson's Ratio</strong></div>
+        <code class="sol-formula">ε_lateral = −ν × ε_axial = −0.30 × 9.66×10⁻⁴ = −2.90×10⁻⁴</code>
+        <div class="solution-step"><strong>(c) Change in Diameter</strong></div>
+        <code class="sol-formula">Δd = ε_lateral × d₀ = −2.90×10⁻⁴ × 25 mm = −7.25×10⁻³ mm ≈ −7.2 μm</code>
+        <div class="solution-step">Negative = diameter decreases (as expected under tension).</div>
+        <div class="solution-step"><strong>(d) Required Load</strong></div>
+        <code class="sol-formula">A₀ = π(0.0125)² = 4.909×10⁻⁴ m²
+F = σ × A₀ = 200×10⁶ × 4.909×10⁻⁴</code>
+        <span class="sol-answer">F ≈ 98.2 kN</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P2 -->
+  <div class="practice-problem">
+    <div class="problem-header" onclick="toggleProblem(this)">
+      <div>
+        <div class="problem-num">PROBLEM 02 · CH 6</div>
+        <div class="problem-title">True Stress, True Strain & Engineering Stress Conversion</div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <span class="problem-badge badge-ch6">Ch 6</span>
+        <span class="toggle-icon">▾</span>
+      </div>
+    </div>
+    <div class="problem-body">
+      <div class="problem-text">
+        For a specific copper alloy, the following engineering stresses and corresponding plastic engineering strains were measured:<br><br>
+        Engineering Stress: 180 MPa → Engineering Strain: 0.12<br>
+        Engineering Stress: 225 MPa → Engineering Strain: 0.22<br><br>
+        Compute the engineering stress necessary to produce an engineering strain of 0.40.
+      </div>
+      <button class="show-solution-btn" onclick="toggleSolution(this)">Show Solution</button>
+      <div class="solution-box">
+        <div class="solution-title">✓ Solution</div>
+        <div class="solution-step"><strong>Step 1: Convert to True Stress/Strain</strong></div>
+        <code class="sol-formula">Point 1: ε_T1 = ln(1.12) = 0.1133 | σ_T1 = 180×1.12 = 201.6 MPa
+Point 2: ε_T2 = ln(1.22) = 0.1989 | σ_T2 = 225×1.22 = 274.5 MPa</code>
+        <div class="solution-step"><strong>Step 2: Find n using log form of σ_T = Kε_T^n</strong></div>
+        <code class="sol-formula">n = [log(σ_T2) − log(σ_T1)] / [log(ε_T2) − log(ε_T1)]
+n = log(274.5/201.6) / log(0.1989/0.1133) = 0.549</code>
+        <div class="solution-step"><strong>Step 3: Find K</strong></div>
+        <code class="sol-formula">K = σ_T1 / ε_T1^n = 201.6 / (0.1133)^0.549 = 663.1 MPa</code>
+        <div class="solution-step"><strong>Step 4: Find true stress at ε_eng = 0.40 → ε_T = ln(1.40) = 0.3365</strong></div>
+        <code class="sol-formula">σ_T = 663.1 × (0.3365)^0.549 = 365.8 MPa</code>
+        <div class="solution-step"><strong>Step 5: Convert back to engineering stress</strong></div>
+        <code class="sol-formula">σ_eng = σ_T / (1 + ε_eng) = 365.8 / 1.40</code>
+        <span class="sol-answer">σ_eng ≈ 261.3 MPa</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P3 -->
+  <div class="practice-problem">
+    <div class="problem-header" onclick="toggleProblem(this)">
+      <div>
+        <div class="problem-num">PROBLEM 03 · CH 7</div>
+        <div class="problem-title">Resolved Shear Stress — Will Yielding Occur?</div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <span class="problem-badge badge-ch7">Ch 7</span>
+        <span class="toggle-icon">▾</span>
+      </div>
+    </div>
+    <div class="problem-body">
+      <div class="problem-text">
+        A single crystal of some metal has a τ_CRSS of 20.7 MPa and is exposed to a tensile stress of 45 MPa.<br><br>
+        (a) Will yielding occur when φ = 60° and λ = 35°?<br>
+        (b) If not, what stress is necessary?
+      </div>
+      <button class="show-solution-btn" onclick="toggleSolution(this)">Show Solution</button>
+      <div class="solution-box">
+        <div class="solution-title">✓ Solution</div>
+        <div class="solution-step"><strong>(a) Calculate τ_R</strong></div>
+        <code class="sol-formula">τ_R = σ · cos(λ) · cos(φ)
+τ_R = 45 MPa × cos(35°) × cos(60°)
+τ_R = 45 × 0.819 × 0.500 = 18.4 MPa</code>
+        <div class="solution-step">Since τ_R = 18.4 MPa &lt; τ_CRSS = 20.7 MPa → <strong style="color:var(--red)">NO YIELDING</strong></div>
+        <div class="solution-step"><strong>(b) Minimum stress for yielding (σ_y)</strong></div>
+        <code class="sol-formula">τ_CRSS = σ_y · cos(λ) · cos(φ)
+σ_y = τ_CRSS / (cos λ · cos φ)
+σ_y = 20.7 / (cos 35° × cos 60°) = 20.7 / 0.4096</code>
+        <span class="sol-answer">σ_y ≈ 50.5 MPa (applied stress must be ≥ this for slip)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P4 -->
+  <div class="practice-problem">
+    <div class="problem-header" onclick="toggleProblem(this)">
+      <div>
+        <div class="problem-num">PROBLEM 04 · CH 7</div>
+        <div class="problem-title">Hall-Petch — Find Grain Diameter for Target Yield Strength</div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <span class="problem-badge badge-ch7">Ch 7</span>
+        <span class="toggle-icon">▾</span>
+      </div>
+    </div>
+    <div class="problem-body">
+      <div class="problem-text">
+        For a hypothetical alloy:<br>
+        σ_y = 85 MPa when d = 3.0×10⁻² mm<br>
+        σ_y = 255 MPa when d = 6.0×10⁻³ mm<br><br>
+        Determine the grain diameter (in mm) at which the yield strength equals 190 MPa.
+      </div>
+      <button class="show-solution-btn" onclick="toggleSolution(this)">Show Solution</button>
+      <div class="solution-box">
+        <div class="solution-title">✓ Solution</div>
+        <div class="solution-step"><strong>Step 1: Write 2 Hall-Petch equations</strong></div>
+        <code class="sol-formula">(1) 85 = σ₀ + k·(3.0×10⁻²)^(−1/2) → 85 = σ₀ + 5.7735k
+(2) 255 = σ₀ + k·(6.0×10⁻³)^(−1/2) → 255 = σ₀ + 12.9099k</code>
+        <div class="solution-step"><strong>Step 2: Subtract (1) from (2) to find k</strong></div>
+        <code class="sol-formula">170 = 7.1364k → k = 23.821 MPa·mm^(1/2)</code>
+        <div class="solution-step"><strong>Step 3: Find σ₀</strong></div>
+        <code class="sol-formula">σ₀ = 85 − 23.821×5.7735 = −52.53 MPa (negative is mathematically valid)</code>
+        <div class="solution-step"><strong>Step 4: Solve for d when σ_y = 190 MPa</strong></div>
+        <code class="sol-formula">190 = −52.53 + 23.821·d^(−1/2)
+d^(−1/2) = 242.53/23.821 = 10.181
+d = (1/10.181)² = (0.09822)²</code>
+        <span class="sol-answer">d ≈ 9.65×10⁻³ mm</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P5 -->
+  <div class="practice-problem">
+    <div class="problem-header" onclick="toggleProblem(this)">
+      <div>
+        <div class="problem-num">PROBLEM 05 · CH 8</div>
+        <div class="problem-title">Fracture Toughness — Critical Crack Length & Fracture Assessment</div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <span class="problem-badge badge-ch8">Ch 8</span>
+        <span class="toggle-icon">▾</span>
+      </div>
+    </div>
+    <div class="problem-body">
+      <div class="problem-text">
+        A pressure vessel is made from high-strength steel: K_IC = 55 MPa√m, σ_y = 1400 MPa. Under service, σ = 400 MPa. Assume Y = 1.0.<br><br>
+        (a) Calculate the critical half crack length a_c<br>
+        (b) A surface crack of length a = 5.0 mm is detected. Will it cause fracture?
+      </div>
+      <button class="show-solution-btn" onclick="toggleSolution(this)">Show Solution</button>
+      <div class="solution-box">
+        <div class="solution-title">✓ Solution</div>
+        <div class="solution-step"><strong>(a) Critical crack half-length</strong></div>
+        <code class="sol-formula">a_c = (1/π) × (K_IC / Yσ)²
+a_c = (1/π) × (55 / (1.0 × 400))²
+a_c = (1/π) × (0.1375)² = (1/π) × 0.018906</code>
+        <span class="sol-answer">a_c = 6.02 mm — any crack larger than this causes catastrophic fracture</span>
+        <div class="solution-step" style="margin-top:12px"><strong>(b) Check a = 5.0 mm surface crack</strong></div>
+        <div class="solution-step">Surface crack → use a = 5.0 mm as-is</div>
+        <code class="sol-formula">K_applied = Y × σ × √(πa)
+K_applied = 1.0 × 400 × √(π × 5.0×10⁻³)
+K_applied = 400 × 0.1253 = 50.1 MPa√m</code>
+        <div class="solution-step">K_applied = 50.1 MPa√m &lt; K_IC = 55 MPa√m</div>
+        <span class="sol-answer">NO fracture — but margin is only ~9%. Monitor closely!</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P6 -->
+  <div class="practice-problem">
+    <div class="problem-header" onclick="toggleProblem(this)">
+      <div>
+        <div class="problem-num">PROBLEM 06 · CH 8</div>
+        <div class="problem-title">Rotating-Bending Fatigue — Find Allowable Stress</div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <span class="problem-badge badge-ch8">Ch 8</span>
+        <span class="toggle-icon">▾</span>
+      </div>
+    </div>
+    <div class="problem-body">
+      <div class="problem-text">
+        A rotating-bending fatigue test is conducted on a specimen:<br>
+        d₀ = 10 mm, F = 500 N, L = 50 mm, N (safety factor) = 2<br><br>
+        Determine the allowable stress for this specimen.
+      </div>
+      <button class="show-solution-btn" onclick="toggleSolution(this)">Show Solution</button>
+      <div class="solution-box">
+        <div class="solution-title">✓ Solution</div>
+        <div class="solution-step"><strong>Rotating-bending formula: σ = 16FL / (πd₀³)</strong></div>
+        <code class="sol-formula">σ = (16 × 500 N × 0.050 m) / (π × (0.010 m)³)
+σ = 400 / (π × 10⁻⁶) = 127.3 MPa</code>
+        <div class="solution-step"><strong>Apply safety factor:</strong></div>
+        <code class="sol-formula">σ_allow = σ / N = 127.3 / 2</code>
+        <span class="sol-answer">σ_allow = 63.7 MPa</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P7 -->
+  <div class="practice-problem">
+    <div class="problem-header" onclick="toggleProblem(this)">
+      <div>
+        <div class="problem-num">PROBLEM 07 · CH 8</div>
+        <div class="problem-title">Creep — Total Elongation Calculation</div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <span class="problem-badge badge-ch8">Ch 8</span>
+        <span class="toggle-icon">▾</span>
+      </div>
+    </div>
+    <div class="problem-body">
+      <div class="problem-text">
+        A cylindrical S-590 alloy rod: L₀ = 750 mm, d = 15 mm. Exposed to tensile load of 25,000 N at 750°C for 12 hours. Steady-state creep rate ε̇_s = 1.5×10⁻² h⁻¹. Sum of instantaneous and primary creep elongation = 0.5 mm.<br><br>
+        What is the total elongation after 12 hours?
+      </div>
+      <button class="show-solution-btn" onclick="toggleSolution(this)">Show Solution</button>
+      <div class="solution-box">
+        <div class="solution-title">✓ Solution</div>
+        <div class="solution-step"><strong>Step 1: Steady-state creep strain</strong></div>
+        <code class="sol-formula">ε_steady = ε̇_s × t = 1.5×10⁻² h⁻¹ × 12 h = 0.18</code>
+        <div class="solution-step"><strong>Step 2: Elongation from steady-state creep</strong></div>
+        <code class="sol-formula">ΔL_steady = ε_steady × L₀ = 0.18 × 750 mm = 135.0 mm</code>
+        <div class="solution-step"><strong>Step 3: Add instantaneous + primary elongation</strong></div>
+        <code class="sol-formula">ΔL_total = ΔL_steady + ΔL_inst+primary = 135.0 + 0.5</code>
+        <span class="sol-answer">ΔL_total = 135.5 mm</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P8 -->
+  <div class="practice-problem">
+    <div class="problem-header" onclick="toggleProblem(this)">
+      <div>
+        <div class="problem-num">PROBLEM 08 · CH 8</div>
+        <div class="problem-title">Fatigue — Mean Stress & Stress Ratio</div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <span class="problem-badge badge-ch8">Ch 8</span>
+        <span class="toggle-icon">▾</span>
+      </div>
+    </div>
+    <div class="problem-body">
+      <div class="problem-text">
+        A fatigue cycle fluctuates between a maximum tension of 150 MPa and a maximum compression of −50 MPa.<br><br>
+        (a) What is the Mean Stress?<br>
+        (b) What is the Stress Amplitude?<br>
+        (c) What is the Stress Ratio R?
+      </div>
+      <button class="show-solution-btn" onclick="toggleSolution(this)">Show Solution</button>
+      <div class="solution-box">
+        <div class="solution-title">✓ Solution</div>
+        <code class="sol-formula">σ_mean = (σ_max + σ_min) / 2 = (150 + (−50)) / 2 = 100/2 = 50 MPa
+σ_a = (σ_max − σ_min) / 2 = (150 − (−50)) / 2 = 200/2 = 100 MPa
+R = σ_min / σ_max = −50 / 150</code>
+        <span class="sol-answer">σ_mean = 50 MPa | σ_a = 100 MPa | R = −0.333</span>
+        <div class="solution-step" style="margin-top:8px">R &lt; 0 means the cycle involves both tension and compression — more damaging than purely tensile cycling (R = 0).</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P9 -->
+  <div class="practice-problem">
+    <div class="problem-header" onclick="toggleProblem(this)">
+      <div>
+        <div class="problem-num">PROBLEM 09 · CH 8</div>
+        <div class="problem-title">Internal Crack — Griffith Critical Stress</div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <span class="problem-badge badge-ch8">Ch 8</span>
+        <span class="toggle-icon">▾</span>
+      </div>
+    </div>
+    <div class="problem-body">
+      <div class="problem-text">
+        A brittle Al₂O₃ ceramic component: E = 380 GPa, γ_s = 0.90 J/m². An <strong>internal crack of total length 2a = 0.12 mm</strong> is detected.<br><br>
+        Compute the critical stress σ_c required to propagate this crack.
+      </div>
+      <button class="show-solution-btn" onclick="toggleSolution(this)">Show Solution</button>
+      <div class="solution-box">
+        <div class="solution-title">✓ Solution</div>
+        <div class="solution-step"><strong>⚠ Internal crack: 2a = 0.12 mm → a = 0.060 mm = 6.0×10⁻⁵ m (HALVE IT!)</strong></div>
+        <div class="solution-step"><strong>Griffith equation:</strong></div>
+        <code class="sol-formula">σ_c = (2Eγ_s / πa)^(1/2)
+σ_c = [(2 × 380×10⁹ × 0.90) / (π × 6.0×10⁻⁵)]^(1/2)
+σ_c = [6.84×10¹¹ / 1.885×10⁻⁴]^(1/2)
+σ_c = [3.629×10¹⁵]^(1/2)</code>
+        <span class="sol-answer">σ_c ≈ 60.2 MPa</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P10 -->
+  <div class="practice-problem">
+    <div class="problem-header" onclick="toggleProblem(this)">
+      <div>
+        <div class="problem-num">PROBLEM 10 · CH 6</div>
+        <div class="problem-title">Safety Factor & Minimum Diameter (Two Constraints)</div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <span class="problem-badge badge-ch6">Ch 6</span>
+        <span class="toggle-icon">▾</span>
+      </div>
+    </div>
+    <div class="problem-body">
+      <div class="problem-text">
+        A cylindrical tie-rod for an aircraft landing gear: E = 75 GPa, σ_yield = 460 MPa, ν = 0.33.<br><br>
+        Constraints:<br>
+        1. Must support 55,000 N load with Factor of Safety = 2.5<br>
+        2. Diameter reduction must NOT exceed 0.015 mm<br><br>
+        Find the minimum initial diameter satisfying BOTH constraints.
+      </div>
+      <button class="show-solution-btn" onclick="toggleSolution(this)">Show Solution</button>
+      <div class="solution-box">
+        <div class="solution-title">✓ Solution</div>
+        <div class="solution-step"><strong>Constraint 1 — Safety Factor (Yielding)</strong></div>
+        <code class="sol-formula">σ_w = σ_yield / N = 460 / 2.5 = 184 MPa
+σ_w = F/A → 184×10⁶ = 55000 / [π(d₀/2)²]
+d₀ = √(55000×4 / (π×184×10⁶)) = 0.01951 m = 19.51 mm</code>
+        <div class="solution-step"><strong>Constraint 2 — Lateral Strain (Poisson's Ratio)</strong></div>
+        <code class="sol-formula">ε_z = σ_w / E = 184/75000 = 0.002453
+ε_x = −ν × ε_z = −0.33 × 0.002453 = −0.000810
+ε_x = Δd/d₀ → d₀ = 0.015/0.000810 = 18.53 mm</code>
+        <div class="solution-step"><strong>Pick the LARGER value (satisfies BOTH constraints)</strong></div>
+        <span class="sol-answer">Minimum diameter = 19.51 mm (Constraint 1 governs)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P11 -->
+  <div class="practice-problem">
+    <div class="problem-header" onclick="toggleProblem(this)">
+      <div>
+        <div class="problem-num">PROBLEM 11 · CH 7</div>
+        <div class="problem-title">Cold Working — Brinell Hardness to Radius</div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <span class="problem-badge badge-ch7">Ch 7</span>
+        <span class="toggle-icon">▾</span>
+      </div>
+    </div>
+    <div class="problem-body">
+      <div class="problem-text">
+        A cylindrical cold-worked 1040 steel specimen has a Brinell hardness of 250. Initial radius was 10.0 mm. Determine its radius after deformation.<br><br>
+        Given: A steel with hardness 250 HB has TS ≈ 850 MPa, and reaching 850 MPa requires about 22%CW.
+      </div>
+      <button class="show-solution-btn" onclick="toggleSolution(this)">Show Solution</button>
+      <div class="solution-box">
+        <div class="solution-title">✓ Solution</div>
+        <code class="sol-formula">%CW = [(r₀² − r_d²) / r₀²] × 100 → r_d = r₀√(1 − %CW/100)
+r_d = 10.0 mm × √(1 − 22/100)
+r_d = 10.0 × √(0.78) = 10.0 × 0.883</code>
+        <span class="sol-answer">r_d ≈ 8.83 mm</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- P12 -->
+  <div class="practice-problem">
+    <div class="problem-header" onclick="toggleProblem(this)">
+      <div>
+        <div class="problem-num">PROBLEM 12 · CH 8</div>
+        <div class="problem-title">Stress Concentration Factor & Crack-Tip Stress</div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <span class="problem-badge badge-ch8">Ch 8</span>
+        <span class="toggle-icon">▾</span>
+      </div>
+    </div>
+    <div class="problem-body">
+      <div class="problem-text">
+        A flat steel plate has a surface crack of length a = 2.5 mm, crack-tip radius of curvature ρ_t = 0.4 mm. Applied stress σ₀ = 120 MPa.<br><br>
+        (a) Compute K_t (stress concentration factor)<br>
+        (b) Find σ_m at the crack tip
+      </div>
+      <button class="show-solution-btn" onclick="toggleSolution(this)">Show Solution</button>
+      <div class="solution-box">
+        <div class="solution-title">✓ Solution</div>
+        <code class="sol-formula">(a) K_t = 2(a/ρ_t)^(1/2) = 2(2.5/0.4)^(1/2) = 2(6.25)^(1/2) = 2×2.5 = 5.0
+
+(b) σ_m = K_t × σ₀ = 5.0 × 120 MPa</code>
+        <span class="sol-answer">K_t = 5.0 | σ_m = 600 MPa (5× the applied stress!)</span>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end practice panel -->
+</div><!-- end content -->
+
+<footer>
+  <span>EGN 3365 · Exam 2 · March 25, 2026</span>
+  <span>Ch 6 · Ch 7 · Ch 8</span>
+</footer>
+
+<script>
+  function showPanel(id) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  function toggleProblem(header) {
+    const body = header.nextElementSibling;
+    const icon = header.querySelector('.toggle-icon');
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open');
+    header.classList.toggle('open');
+    icon.classList.toggle('open');
+  }
+
+  function toggleSolution(btn) {
+    const sol = btn.nextElementSibling;
+    sol.classList.toggle('open');
+    btn.textContent = sol.classList.contains('open') ? 'Hide Solution' : 'Show Solution';
+  }
+</script>
+</body>
+</html>
